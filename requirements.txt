@@ -1,4 +1,4 @@
 pandas
 mysql-connector-python
-prefect[kubernetes]
 psycopg2
+prefect[kubernetes]
