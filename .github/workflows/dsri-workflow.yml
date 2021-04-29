@@ -1,0 +1,34 @@
+name: Run GitHub Actions workflow on the DSRI
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: 'Run script'
+        required: true
+        default: 'script_get_data.py'
+      artifact:
+        description: 'Upload output to GitHub'
+        required: true
+        default: 'false'
+
+jobs:
+  run-script:
+    runs-on: [self-hosted, linux, X64, dsri, bio2rdf]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run Python script
+      env:
+        RUN_SCRIPT: ${{ github.event.inputs.script }}
+      run: python $RUN_SCRIPT
+
+    - name: Upload output artifact
+      if: github.event.inputs.artifact == 'true'
+      uses: actions/upload-artifact@v1
+      with:
+        name: workflow_output
+        path: mined-disease-chemical-associations.csv
