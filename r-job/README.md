@@ -29,10 +29,15 @@ oc apply -f copy-container.yml
 
 ## Run the job
 
-Build the docker image on the DSRI:
+Create the image in your project (to do only once):
 
 ```bash
 oc new-build --name r-job --binary
+```
+
+Build the docker image on the DSRI (to re-run everytime you make a change to the script and content of the docker image):
+
+```bash
 oc start-build r-job --from-dir=. --follow --wait
 ```
 
@@ -63,3 +68,5 @@ oc delete -f job.yml
 ## Notes
 
 Make sure the R script write the output to the persistent volume, in our case `/data` in the container.
+
+You can also start an application like JupyterLab or the filebrowser instead of Ubuntu in `copy-container.yml` to browse the output files using a web UI.
