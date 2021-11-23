@@ -1,0 +1,30 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: copy-container
+  labels:
+    app: "r-job"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: r-job
+    spec:
+      serviceAccountName: anyuid
+      containers:
+      - name: r-job
+        # We use aUbuntu hosted on GitHub Container Registry to avoid limits from DockerHub
+        image: ghcr.io/maastrichtu-ids/ubuntu:latest
+        imagePullPolicy: IfNotPresent
+        command:
+        - 'tail'
+        - '-f'
+        - '/dev/null'
+        volumeMounts:
+          - mountPath: /data
+            name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: r-job-storage

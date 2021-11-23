@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: r-job
+  labels:
+    app: "r-job"
+spec:
+  template:
+    metadata:
+      name: r-job
+    spec:
+      serviceAccountName: anyuid
+      containers:
+        - name: r-job
+          image: image-registry.openshift-image-registry.svc:5000/dsri-workshop/r-job:latest
+          imagePullPolicy: Always
+          # command: ["Rscript", "--no-save", "/app/rcode.r"] 
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: r-job-storage
+      restartPolicy: Never

@@ -1,0 +1,12 @@
+kind: "PersistentVolumeClaim"
+apiVersion: "v1"
+metadata:
+  name: r-job-storage
+  labels:
+    app: "r-job"
+spec:
+  accessModes:
+    - "ReadWriteMany"
+  resources:
+    requests:
+      storage: 10Gi
