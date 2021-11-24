@@ -65,6 +65,12 @@ Delete the job (before re-running it):
 oc delete -f job.yml
 ```
 
+Delete everything (including the persistent volume and the copy-container)
+
+```bash
+oc delete all,pvc,secret,configmaps,serviceaccount,rolebinding --selector app=r-job
+```
+
 ## Notes
 
 Make sure the R script write the output to the persistent volume, in our case `/data` in the container.

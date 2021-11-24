@@ -1,0 +1,12 @@
+name: demo
+channels:
+  - defaults
+  - conda-forge
+  - anaconda
+dependencies:
+  - python=3.8
+  - pandas
+  - psycopg2
+  - mysql-connector-python
+  - pip:
+    - prefect[kubernetes]
