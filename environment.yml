@@ -8,5 +8,7 @@ dependencies:
   - pandas
   - psycopg2
   - mysql-connector-python
-  - pip:
-    - prefect[kubernetes]
+  - prefect
+  # - pip
+  # - pip:
+  #   - prefect[kubernetes]
