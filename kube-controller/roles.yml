@@ -1,0 +1,42 @@
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: kube-controller
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: pods-edit
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: pods-edit
+subjects:
+- kind: ServiceAccount
+  name: kube-controller
+  namespace: controlling-kube
+roleRef:
+  kind: ClusterRole
+  name: pods-edit
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  annotations:
+    openshift.io/description: Allows to deploy anyuid container in this namespace
+  name: allow-anyuid
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:openshift:scc:anyuid
+subjects:
+- kind: ServiceAccount
+  name: kube-controller
+  namespace: controlling-kube

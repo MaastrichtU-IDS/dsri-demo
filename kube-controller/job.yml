@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pykube-controller
+  labels:
+    app: "pykube-controller"
+spec:
+  template:
+    metadata:
+      name: pykube-controller
+    spec:
+      serviceAccountName: kube-controller
+      containers:
+        - name: pykube-controller
+          image: image-registry.openshift-image-registry.svc:5000/controlling-kube/pykube-controller:latest
+          imagePullPolicy: Always
+          # command: [ "python", "kube_controller.py" ] 
+      #     volumeMounts:
+      #       - mountPath: /data
+      #         name: data
+      # volumes:
+      #   - name: data
+      #     persistentVolumeClaim:
+      #       claimName: pykube-controller-storage
+      restartPolicy: Never
