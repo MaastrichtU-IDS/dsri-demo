@@ -1,5 +1,5 @@
 *.csv
 logs/
-ipynb_checkpoints/
+.ipynb_checkpoints/
 virtual_documents/
 r-job/data/
