@@ -1,5 +1,7 @@
 FROM ghcr.io/maastrichtu-ids/jupyterlab:latest
 
+## Example of Dockerfile to extend the JupyterLab workspace by installing extra packages and libraries
+
 # Switch to root user to install packages
 USER root
 
