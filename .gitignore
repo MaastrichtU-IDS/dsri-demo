@@ -3,3 +3,4 @@ logs/
 .ipynb_checkpoints/
 virtual_documents/
 r-job/data/
+*.jar
