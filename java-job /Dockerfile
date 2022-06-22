@@ -1,4 +1,6 @@
-FROM openjdk:18-oraclelinux7
+FROM ghcr.io/maastrichtu-ids/openjdk:18
+
+# FROM openjdk:18
 
 # RUN apk add R R-dev R-doc
 RUN mkdir -p /app
