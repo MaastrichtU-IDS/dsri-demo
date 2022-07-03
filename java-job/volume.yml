@@ -1,0 +1,12 @@
+kind: "PersistentVolumeClaim"
+apiVersion: "v1"
+metadata:
+  name: java-job-storage
+  labels:
+    app: "java-job"
+spec:
+  accessModes:
+    - "ReadWriteMany"
+  resources:
+    requests:
+      storage: 10Gi

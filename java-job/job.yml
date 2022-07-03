@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: java-job
+  labels:
+    app: "java-job"
+spec:
+  template:
+    metadata:
+      name: java-job
+    spec:
+      serviceAccountName: anyuid
+      containers:
+        - name: java-job
+          image: image-registry.openshift-image-registry.svc:5000/dsri-workshop/java-job:latest
+          imagePullPolicy: Always
+          # command: ["Rscript", "--no-save", "/app/rcode.r"] 
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      resources:
+        requests:
+          cpu: "1"
+          memory: "4G"
+        limits:
+          cpu: "2"
+          memory: "8G"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: java-job-storage
+      restartPolicy: Never
