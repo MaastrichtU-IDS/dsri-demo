@@ -4,3 +4,4 @@ logs/
 virtual_documents/
 r-job/data/
 *.jar
+.venv/
